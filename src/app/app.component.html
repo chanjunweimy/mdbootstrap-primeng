@@ -1,0 +1,62 @@
+<!-- Just an image -->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark black justify-content-between scrolling-navbar">
+    <mdb-navbar-brand>
+        <a class="navbar-brand" href="#">
+            <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="">
+        </a>
+    </mdb-navbar-brand>
+    <links>
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <i class="fa fa-user white-text"></i>
+          </a>
+        </li>
+      </ul>
+    </links>
+</mdb-navbar>
+<div class="container-fluid">
+    <div class="row justify-content-md-center my-5 mx-5">
+        <p-table #dt [scrollable]="true" scrollHeight="calc(100vh - 420px)"  [loading]="refreshing"  [columns]="cols" [value]="models" [resizableColumns]="true">
+          <ng-template pTemplate="caption">
+              <div style="text-align: right">        
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+          </ng-template>
+          <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                  <col *ngFor="let col of columns; let i = index;" />
+              </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  <th *ngFor="let col of columns; let i = index;" 
+                      pResizableColumn>
+                      {{col.header}}
+                  </th>
+              </tr>
+              <tr>
+                  <th *ngFor="let col of columns">
+                      <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                  </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-model let-columns>
+              <tr>
+                  <td class="ui-resizable-column">{{model.id}}</td>
+                  <td class="ui-resizable-column">                      
+                      {{model.category}}
+                  </td>
+                  <td class="ui-resizable-column">
+                      <i class="fa fa-times-circle text-danger"></i>
+                      <i class="fa fa-times-circle text-danger"></i>
+                      <i class="fa fa-check-circle text-success"></i>
+                      <i class="fa fa-warning text-warning"></i>
+                    {{model.dummy}}
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+</div>
